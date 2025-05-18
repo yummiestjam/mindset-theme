@@ -25,6 +25,16 @@ function mindset_enqueues() {
         wp_get_theme()->get('Version'),
         array('strategy' => 'defer')
     );
+
+    if (is_page(15)) { // 15 is the id of the contact page
+        wp_enqueue_script(
+            'mindset-contact',
+            get_theme_file_uri('assets/js/contact.js'),
+            array('mindset-scroll-to-top'),
+            wp_get_theme()->get('Version'),
+            array('strategy' => 'defer')
+        );
+    };
 }
 add_action('wp_enqueue_scripts', 'mindset_enqueues');
 
