@@ -68,6 +68,12 @@ return array(
 		'supports' => array(
 			'html' => false
 		),
+		'attributes' => array(
+			'startingYear' => array(
+				'type' => 'number',
+				'default' => 2020
+			)
+		),
 		'textdomain' => 'copyright-date',
 		'editorScript' => 'file:./index.js',
 		'style' => 'file:./style-index.css',

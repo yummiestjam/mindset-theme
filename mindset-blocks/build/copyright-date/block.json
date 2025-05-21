@@ -11,6 +11,12 @@
   "supports": {
     "html": false
   },
+  "attributes": {
+    "startingYear": {
+      "type": "number",
+      "default": 2020
+    }
+  },
   "textdomain": "copyright-date",
   "editorScript": "file:./index.js",
   "style": "file:./style-index.css",

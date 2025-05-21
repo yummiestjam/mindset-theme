@@ -23,11 +23,25 @@ import { PanelBody, TextControl } from '@wordpress/components';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit( { attributes, setAttributes } ) {
+	const { startingYear } = attributes;
 	const currentYear = new Date().getFullYear().toString();
 	return (
-		<p { ...useBlockProps() }>
-			{__('Copyright', 'copyright-date')} © { currentYear }
-		</p>
+		<>
+			<InspectorControls>
+				<PanelBody title={ __( 'Settings', 'copyright-date' ) }>
+					<TextControl
+						label={ __( 'Starting Year', 'copyright-date' ) }
+						value={ startingYear }
+						onChange={ ( newStartingYear ) => {
+							setAttributes( { startingYear: newStartingYear } );
+						} }
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<p { ...useBlockProps() }>
+				{ __( 'Copyright', 'copyright-date') } © { startingYear } - { currentYear }
+			</p>
+		</>
 	);
 }
