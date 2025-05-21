@@ -33,51 +33,40 @@ import { useEntityProp } from '@wordpress/core-data';
 * @see https://developer.wordpress.org/block-editor/reference-guides/components/toggle-control/
 */
 import { PanelBody, PanelRow, ToggleControl } from '@wordpress/components';
- 
+
 /**
-* The edit function describes the structure of your block in the context of the
-* editor. This represents what the editor will render when the block is used.
-*
-* @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
-*
-* @return {Element} Element to render.
-*/
+ * The edit function describes the structure of your block in the context of the
+ * editor. This represents what the editor will render when the block is used.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
+ *
+ * @return {Element} Element to render.
+ */
 export default function Edit( {attributes, setAttributes} ) {
- 
-	// Set the post ID of your Contact Page
 	const postID = 15;
-	
-	// Fetch meta data as an object and the setMeta function
 	const [meta, setMeta] = useEntityProp('postType', 'page', 'meta', postID);
- 
-	// Destructure all our meta data for ease of use
-	// const { company_address } = meta;
+	// const { company_email } = meta;
 
 	 // this line is from chatgpt, while i was trying to debug.
 	 // the console was throwing errors even when displaying the address right,
 	 // seemingly because meta was undefined
-	const { company_address = '' } = meta || {};
- 
-	// Flexible helper for setting a single meta value w/o mutating state
-	const updateMeta = ( key, value ) => {
-		setMeta( { ...meta, [key]: value } );
+	const { company_email = '' } = meta || {};
+	const updateMeta = (key, value) => {
+		setMeta({...meta, [key]: value});
 	};
- 
-	const { svgIcon } = attributes;
- 
+	const {svgIcon} = attributes;
+
 	return (
 		<>
 			<address { ...useBlockProps() }>
 				{ svgIcon && 
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="Location Icon">
-						<path d="M12 0c-3.148 0-6 2.553-6 5.702 0 3.148 2.602 6.907 6 12.298 3.398-5.391 6-9.15 6-12.298 0-3.149-2.851-5.702-6-5.702zm0 8c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm4 14.5c0 .828-1.79 1.5-4 1.5s-4-.672-4-1.5 1.79-1.5 4-1.5 4 .672 4 1.5z"/>
-					</svg>
+					<svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M22,3H2A1,1,0,0,0,1,4V20a1,1,0,0,0,1,1H22a1,1,0,0,0,1-1V4A1,1,0,0,0,22,3ZM21,19H3V9.477l8.628,3.452a1.01,1.01,0,0,0,.744,0L21,9.477ZM21,7.323l-9,3.6-9-3.6V5H21Z"></path></g></svg>
 				}
 				<RichText
-					placeholder={ __( 'Enter address here...', 'mindset-blocks' ) }
+					placeholder={ __( 'Enter email address here...', 'mindset-blocks' ) }
 					tagName="p"
-					value={ company_address }
-					onChange={ ( nextValue ) => updateMeta("company_address", nextValue) }
+					value={ company_email }
+					onChange={ ( nextValue ) => updateMeta("company_email", nextValue) }
 				/>
 			</address>
 			<InspectorControls>
@@ -89,7 +78,7 @@ export default function Edit( {attributes, setAttributes} ) {
 							onChange={ ( value ) =>
 								setAttributes( { svgIcon: value } )
 							}
-							help={ __( 'Display an SVG icon next to the address.', 'mindset-blocks' ) }
+							help={ __( 'Display an SVG icon next to the email.', 'mindset-blocks' ) }
 						/>
 					</PanelRow>
 				</PanelBody>
