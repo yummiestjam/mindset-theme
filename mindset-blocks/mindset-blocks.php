@@ -92,14 +92,14 @@ function fwd_render_service_posts( $attributes ) {
 			$query = new WP_Query( $args );
 
 			if ( $query->have_posts() ) {
-				echo '<ul>';
+				echo '<nav class="services-nav">'; // i originally used ul; some modifications from lecture 7
 					while ( $query->have_posts() ) {
 						$query->the_post();
-						echo '<a href="#' . get_the_ID() .'">';
-							echo '<li>' . get_the_title() . '</li>';
+						echo '<a href="#' . esc_attr(get_the_ID()) .'">';
+							echo '<p>' . esc_html(get_the_title()) . '</p>';
 						echo '</a>';
 					}
-				echo '</ul>';
+				echo '</nav>';
 				wp_reset_postdata();
 			}
 
@@ -122,9 +122,9 @@ function fwd_render_service_posts( $attributes ) {
 			if ( $query->have_posts() ) {
 				while ( $query->have_posts() ) {
 					$query->the_post();
-					echo '<article id="' . get_the_ID() . '">';
-						echo '<h2>' . get_the_title() . '</h2>';
-						echo get_the_content();
+					echo '<article id="' . esc_attr(get_the_ID()) . '">';
+						echo '<h2>' . esc_html(get_the_title()) . '</h2>';
+						the_content();
 					echo '</article>';
 				}
 				wp_reset_postdata();

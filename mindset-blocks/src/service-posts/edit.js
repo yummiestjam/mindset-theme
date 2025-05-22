@@ -33,7 +33,6 @@ export default function Edit() {
 		<div { ...useBlockProps() }>
 			<ServerSideRender
 				block = "mindset-blocks/service-posts"
-				attributes = {{}}	
 			/>
 		</div>
 	);
