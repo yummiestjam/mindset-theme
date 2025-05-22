@@ -116,6 +116,7 @@ function mindset_register_custom_post_types() {
         'item_link'             => __( 'Job Posting link.', 'mindset-theme' ),
         'item_link_description' => __( 'A link to a job posting.', 'mindset-theme' ),
     );
+
     $args = array(
         'labels'             => $labels,
         'public'             => true,
@@ -143,6 +144,46 @@ function mindset_register_custom_post_types() {
         )
     );
     register_post_type( 'fwd-job-posting', $args );
+
+    // Service CPT
+    $labels = array(
+        'name'                  => _x( 'Service', 'post type general name', 'mindset-theme' ),
+        'singular_name'         => _x( 'Service', 'post type singular name', 'mindset-theme' ),
+        'menu_name'             => _x( 'Services', 'admin menu', 'mindset-theme' ),
+        'add_new'               => _x( 'Add New', 'service', 'mindset-theme' ),
+        'add_new_item'          => __( 'Add New Service', 'mindset-theme' ),
+        'new_item'              => __( 'New Service', 'mindset-theme' ),
+        'edit_item'             => __( 'Edit Service', 'mindset-theme' ),
+        'view_item'             => __( 'View Service', 'mindset-theme'  ),
+        'all_items'             => __( 'All Services', 'mindset-theme' ),
+        'search_items'          => __( 'Search Services', 'mindset-theme' ),
+        'parent_item_colon'     => __( 'Parent Services:', 'mindset-theme' ),
+        'not_found'             => __( 'No services found.', 'mindset-theme' ),
+        'not_found_in_trash'    => __( 'No services found in Trash.', 'mindset-theme' ),
+        'item_link'             => __( 'Service link.', 'mindset-theme' ),
+        'item_link_description' => __( 'A link to a services.', 'mindset-theme' ),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'services' ),
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 7,
+        'menu_icon'          => 'dashicons-hammer',
+        'supports'           => array( 'title', 'editor' ),
+        'template'           => array( array( 'core/paragraph' ) ),
+        'template_lock'      => 'all'
+    );
+    register_post_type( 'fwd-service', $args );
+    
 }
 add_action( 'init', 'mindset_register_custom_post_types' );
 

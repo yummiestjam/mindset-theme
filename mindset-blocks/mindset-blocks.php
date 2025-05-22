@@ -67,3 +67,70 @@ function mindset_register_custom_fields() {
 	);
 }
 add_action( 'init', 'mindset_register_custom_fields' );
+
+function mindset_blocks_render_callbacks( $args, $name ) {
+    if ( 'mindset-blocks/service-posts' === $name ) {
+        $args['render_callback'] = 'fwd_render_service_posts';
+    }
+    return $args;
+}
+add_filter( 'register_block_type_args', 'mindset_blocks_render_callbacks', 10, 2 );
+
+function fwd_render_service_posts( $attributes ) {
+    ob_start();
+    ?>
+    <div <?php echo get_block_wrapper_attributes(); ?>>
+        <?php
+			// QUERY FOR TITLE LINKS
+			$args = array(
+				'post_type' => 'fwd-service',
+				'posts_per_page' => -1,
+				'orderby' => 'title',
+				'order' => 'ASC'
+			);
+
+			$query = new WP_Query( $args );
+
+			if ( $query->have_posts() ) {
+				echo '<ul>';
+					while ( $query->have_posts() ) {
+						$query->the_post();
+						echo '<a href="#' . get_the_ID() .'">';
+							echo '<li>' . get_the_title() . '</li>';
+						echo '</a>';
+					}
+				echo '</ul>';
+				wp_reset_postdata();
+			}
+
+			// QUERY TO DISPLAY POSTS
+
+			$args = array(
+				'post_type' => 'fwd-service',
+				'posts_per_page' => -1,
+				'orderby' => 'title',
+				'order' => 'ASC'
+			);
+
+			$query = new WP_Query( $args );
+
+			// test if query is the thing that broke
+			// echo '<pre>';
+			// print_r($query -> posts);
+			// echo '</pre>';
+
+			if ( $query->have_posts() ) {
+				while ( $query->have_posts() ) {
+					$query->the_post();
+					echo '<article id="' . get_the_ID() . '">';
+						echo '<h2>' . get_the_title() . '</h2>';
+						echo get_the_content();
+					echo '</article>';
+				}
+				wp_reset_postdata();
+			}
+        ?>
+    </div>
+    <?php
+    return ob_get_clean();
+}

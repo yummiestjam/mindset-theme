@@ -78,5 +78,25 @@ return array(
 		'editorScript' => 'file:./index.js',
 		'style' => 'file:./style-index.css',
 		'render' => 'file:./render.php'
+	),
+	'service-posts' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'mindset-blocks/service-posts',
+		'version' => '1.0.0',
+		'title' => 'Service Posts',
+		'category' => 'text',
+		'icon' => 'hammer',
+		'description' => 'Output all items of the Service post type.',
+		'example' => array(
+			
+		),
+		'supports' => array(
+			'html' => false
+		),
+		'textdomain' => 'service-posts',
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'style' => 'file:./style-index.css'
 	)
 );
