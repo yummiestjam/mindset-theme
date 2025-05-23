@@ -153,12 +153,16 @@ function fwd_render_service_posts( $attributes ) {
 // Callback function for the Testimonial Slider
 function fwd_render_testimonial_slider( $attributes, $content ) {
     ob_start();
+
     $swiper_settings = array(
         'pagination' => $attributes['pagination'],
         'navigation' => $attributes['navigation']
     );
+
+	$styles = "--arrow-color: " . $attributes['arrowColor'] . ";";
+
     ?>
-    <div <?php echo get_block_wrapper_attributes(); ?>>
+    <div <?php echo get_block_wrapper_attributes(['style' => $styles]); ?>>
         <script>
             const swiper_settings = <?php echo json_encode( $swiper_settings ); ?>;
         </script>

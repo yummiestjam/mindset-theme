@@ -123,6 +123,10 @@ return array(
 			'pagination' => array(
 				'type' => 'boolean',
 				'default' => true
+			),
+			'arrowColor' => array(
+				'type' => 'string',
+				'default' => '#446677'
 			)
 		),
 		'textdomain' => 'testimonial-slider',

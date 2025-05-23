@@ -20,6 +20,7 @@
 .swiper-button-prev {
     background: none;
     border: none;
+    color: var(--arrow-color);
 }
 
 .swiper-pagination-bullets.swiper-pagination-horizontal {
@@ -27,6 +28,11 @@
 }
 
 .swiper-pagination-bullet {
+    background-color: var(--arrow-color);
     width: 1rem;
     height: 1rem;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: var(--arrow-color);
 }

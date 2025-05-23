@@ -6,18 +6,33 @@ import { InspectorControls, useBlockProps  } from '@wordpress/block-editor';
 import { PanelBody, PanelRow, ToggleControl } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import { SwiperInit } from './swiper-init';
+import { PanelColorSettings } from '@wordpress/block-editor';
 
 /**
 * Export.
 */
 export default function Edit( {attributes, setAttributes} ) {
-    const { navigation, pagination } = attributes;
+    const { navigation, pagination, arrowColor } = attributes;
+
+    const style = {
+        '--arrow-color': arrowColor
+    }
     
     const swiper = SwiperInit( '.swiper', { navigation, pagination } );
     
     return (
         <>
             <InspectorControls>
+                <PanelColorSettings 
+                    title = {__('Arrow Color Settings')}
+                    colorSettings = {[
+                        {
+                            label: __('Arrow Color'),
+                            value: attributes.arrowColor,
+                            onChange: (color) => setAttributes({arrowColor: color})
+                        }
+                    ]}
+                />
                 <PanelBody title={ __( 'Settings', 'testimonial-slider' ) }>
                     <PanelRow>
                         <ToggleControl
@@ -41,7 +56,7 @@ export default function Edit( {attributes, setAttributes} ) {
                     </PanelRow>
                 </PanelBody>
             </InspectorControls>
-            <div { ...useBlockProps() }>
+            <div { ...useBlockProps({style}) }>
                 <ServerSideRender block="mindset-blocks/testimonial-slider" attributes={ attributes } />
             </div>
         </>
