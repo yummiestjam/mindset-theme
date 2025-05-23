@@ -105,29 +105,41 @@ function fwd_render_service_posts( $attributes ) {
 
 			// QUERY TO DISPLAY POSTS
 
-			$args = array(
-				'post_type' => 'fwd-service',
-				'posts_per_page' => -1,
-				'orderby' => 'title',
-				'order' => 'ASC'
-			);
+			$taxonomy = 'fwd-service-type';
+			$terms = get_terms(array('taxonomy' => $taxonomy));
 
-			$query = new WP_Query( $args );
+			if ($terms && !is_wp_error($terms)){
+				foreach($terms as $term){
+					$args = array(
+						'post_type' => 'fwd-service',
+						'posts_per_page' => -1,
+						'orderby' => 'title',
+						'order' => 'ASC',
+						'tax_query' => array(
+							array(
+								'taxonomy' => $taxonomy,
+								'field' => 'slug',
+								'terms' => $term->slug
+							)
+						)
+					);
 
-			// test if query is the thing that broke
-			// echo '<pre>';
-			// print_r($query -> posts);
-			// echo '</pre>';
+					$query = new WP_Query( $args );
 
-			if ( $query->have_posts() ) {
-				while ( $query->have_posts() ) {
-					$query->the_post();
-					echo '<article id="' . esc_attr(get_the_ID()) . '">';
-						echo '<h2>' . esc_html(get_the_title()) . '</h2>';
-						the_content();
-					echo '</article>';
+					if ( $query->have_posts() ) {
+						echo '<section>';
+						echo '<h2>' . esc_html($term->name) . '</h2>';
+						while ( $query->have_posts() ) {
+							$query->the_post();
+							echo '<article id="' . esc_attr(get_the_ID()) . '">';
+								echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+								the_content();
+							echo '</article>';
+						}
+						wp_reset_postdata();
+						echo '</section>';
+					}
 				}
-				wp_reset_postdata();
 			}
         ?>
     </div>
